@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Reflection.Metadata.Ecma335;
 using projCharacter;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 class MainProgram
@@ -9,38 +11,45 @@ class MainProgram
     {
         Character j1 = new Character("Paul", "20", "40", "50");
         Character j2 = new Character();
+        bool booleen = false;
 
-    }
 
+        while (j1.lifePoints > 0 && j2.lifePoints > 0)
+        {
+            if (booleen == false)
+            {
+                Attaque(j1,j2);
+                booleen = true;
 
-    public static float Attack(float x, float y)
+            }
+            else
+            {
+                Attaque(j2,j1);
+                booleen = false;
+
+            }
+        }
+            if (j1.lifePoints < 0 && j2.lifePoints >= 0)
+            {
+                Console.WriteLine("Le joueur "+j2.nameCharacter+"qui a gagné avec ce score: " + j2.lifePoints);
+
+            }
+            else if (j2.lifePoints < 0 && j1.lifePoints >= 0)
+            {
+            Console.WriteLine("Le joueur " +j1.nameCharacter+" a gagné avec ce score : " + j1.lifePoints);
+            
+            }
+            else
+            {
+                Console.WriteLine("Vous avez fini égalité");
+            
+            }
+        }
+    
+    public static void Attaque(Character j1, Character j2)
     {
-        if (x == 1 && y == 2)
-        {
-            Console.WriteLine("Le joueur j1 attaque le joueur 2.");
-
-            j2.lifePoints = j1.lifeAttak - j2.lifeDef;
-
-            return j2.lifePoints;
-        }
-
-        else if (x == 2 && y == 1)
-        {
-
-            Controle.WriteLine("Le joueur j2 attaque j1. ");
-                j1.lifePoints = j2.lifeAttak - j1.lifeDef;
-            return j1.lifePoints;
-        }
-
-        else
-        {
-
-            Console.WriteLine("Ecrire une valeur x et y différente entre 1 et 2.");
-            Console.WriteLine("Si le joueur 1 attaque, en premiere valeur taper sinon 2. ");
-            return 0;
-        }
+        Console.WriteLine("Le "+ j1.nameCharacter +" attaque le "+j2.nameCharacter);
+        j2.lifePoints = j2.lifePoints - (j1.lifeAttak - j2.lifeDef);
+        Console.WriteLine("Le joureur "+j1.nameCharacter+" a pour nombre de points de vie : " + j1.lifePoints);
     }
-}
-
-
-  
+ }
